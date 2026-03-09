@@ -63,7 +63,7 @@ By the end of this lab, you should be able to:
 
 ## Load and inspect
 
-```{r load_data, echo=TRUE, eval=FALSE}
+```{r load_data, echo=TRUE, eval=TRUE}
 # GOAL: Read the dataset and clean the names.
 
 df <- read_csv("data/us-ams-simple.csv", na = c("-9999")) %>%
@@ -75,7 +75,7 @@ glimpse(df)
 
 ## Derive time columns (if needed)
 
-```{r derive_time, echo=TRUE, eval=FALSE}
+```{r derive_time, echo=TRUE, eval=TRUE}
 # GOAL: Create date / month / day_night columns as in earlier labs.
 
 df <- df %>%
@@ -101,8 +101,8 @@ Possible examples:
 - `gpp`
 - `le`
 
-```{r choose_variable, echo=TRUE, eval=FALSE}
-target_var <- "___"
+```{r choose_variable, echo=TRUE, eval=TRUE}
+target_var <- "swc"
 
 # CHECK: does this variable exist?
 target_var %in% names(df)
@@ -112,11 +112,11 @@ target_var %in% names(df)
 
 Write the population parameter you care about:
 
-> $\mu$ = the true 2023 population mean of `___`
+> $\mu$ = the true 2023 population mean of `swc`
 
 Fill in the blank in words:
 
-> In this lab, my population parameter is the true annual mean of **`___`** at the US-AMS site.
+> In this lab, my population parameter is the true annual mean of **`soil water content (swc)`** at the US-AMS site.
 
 ---
 
@@ -136,22 +136,22 @@ Now turn your claim into hypotheses:
 
 Fill these in:
 
-> My claim is: `___`
+> My claim is: `The annual mean soil water content is 36.`
 
-> $H_0$: `___`
+> $H_0$: `The true 2023 mean soil water content is 36.`
 
-> $H_A$: `___`
+> $H_A$: `The true 2023 mean soil water content is not 36.`
 
 ---
 
 ## 4) Draw one sample and compute the sample mean
 
-```{r draw_sample, echo=TRUE, eval=FALSE}
+```{r draw_sample, echo=TRUE, eval=TRUE}
 # GOAL: Draw one random sample and compute its mean.
 
-set.seed(___)
+set.seed(111)
 
-n_samp <- ___   # e.g., 200
+n_samp <- 200   # e.g., 200
 
 samp <- df %>%
   filter(!is.na(.data[[target_var]])) %>%
@@ -164,18 +164,18 @@ sample_mean
 
 **Prompt (2–3 sentences):** How does your sample mean compare to your claim? Is it close, or already quite different?
 
-> *Write your answer here.*
+> My sample mean is 36.05, which is extremely close to my claim of 36. Based on this sample alone, the claim looks very plausible. At this point, there is not an obvious difference between the sample mean and the claimed population mean.
 
 ---
 
 ## 5) Bootstrap the sample mean
 
-```{r bootstrap_means, echo=TRUE, eval=FALSE}
+```{r bootstrap_means, echo=TRUE, eval=TRUE}
 # GOAL: Bootstrap the sample mean to estimate uncertainty.
 
-set.seed(___)
+set.seed(111)
 
-B <- ___   # e.g., 4000
+B <- 4000   # e.g., 4000
 
 boot_means <- replicate(
   B,
@@ -187,11 +187,11 @@ head(boot_means)
 
 ## 6) Estimate uncertainty
 
-```{r bootstrap_summary, echo=TRUE, eval=FALSE}
+```{r bootstrap_summary, echo=TRUE, eval=TRUE}
 # GOAL: Compute the bootstrap SE and 95% CI.
 
 boot_se <- sd(boot_means)
-boot_ci <- quantile(boot_means, probs = c(___, ___))
+boot_ci <- quantile(boot_means, probs = c(0.025, 0.975))
 
 tibble(
   sample_mean = sample_mean,
@@ -203,7 +203,7 @@ tibble(
 
 **Prompt (2–3 sentences):** What does the bootstrap SE tell you? What does the 95% CI tell you?
 
-> *Write your answer here.*
+> The bootstrap SE tells me how much my sample mean would vary across repeated resamples, so it measures the uncertainty in my estimate. Here, the SE is about 0.57, which suggests the sample mean is fairly stable. The 95% bootstrap CI gives a plausible range for the true 2023 mean soil water content, which is approximately 34.9 to 37.1.
 
 ---
 
@@ -211,10 +211,10 @@ tibble(
 
 Define the null value from your claim.
 
-```{r hypothesis_test, echo=TRUE, eval=FALSE}
+```{r hypothesis_test, echo=TRUE, eval=TRUE}
 # GOAL: Compute z and p-value for your claim.
 
-mu0 <- ___   # numeric claim value
+mu0 <- 36  # numeric claim value
 
 z_stat <- (sample_mean - mu0) / boot_se
 
@@ -241,25 +241,25 @@ Use your p-value and CI to answer:
 
 Fill in:
 
-> The null value `___` is / is not inside my 95% CI.
+> The null value `is` inside my 95% CI.
 
-> My p-value is `___`, which is small / large.
+> My p-value is `0.927`, which is large.
 
-> Therefore, I would / would not reject $H_0$ at the 0.05 level.
+> Therefore, I would not reject $H_0$ at the 0.05 level.
 
 **Prompt (4–6 sentences):** Explain your decision in plain language. Do the data make the claim look plausible or surprising? Be careful: “fail to reject” does not mean “prove true.”
 
-> *Write your answer here.*
+> In plain language, the data makes the claim that the annual mean soil water content is 36 look plausible rather than surprising. The null value of 36 falls inside my 95% confidence interval, and the p-value is very large (0.927), so I do not have strong evidence against the null hypothesis. Therefore, I would not reject H_0 at the 0.05 level. My sample is very consistent with a true population mean of 36. However, failing to reject the null does not prove that the true mean is exactly 36; it only means that my data do not provide evidence against that claim.
 
 ---
 
 ## 9) Visualize the hypothesis test
 
-```{r plot_test, echo=TRUE, eval=FALSE}
+```{r plot_test, echo=TRUE, eval=TRUE}
 # GOAL: Plot the bootstrap distribution, sample mean, CI, and null value.
 
 ggplot(tibble(boot_mean = boot_means), aes(x = boot_mean)) +
-  geom_histogram(bins = ___, alpha = 0.8) +
+  geom_histogram(bins = 30, alpha = 0.8) +
   geom_vline(xintercept = sample_mean, linetype = "dashed", linewidth = 1.1) +
   geom_vline(xintercept = boot_ci, color = "red", linewidth = 1.1) +
   geom_vline(xintercept = mu0, color = "blue", linewidth = 1.1) +
@@ -274,7 +274,7 @@ ggplot(tibble(boot_mean = boot_means), aes(x = boot_mean)) +
 
 **Prompt (2–3 sentences):** Does the plot agree with your p-value-based conclusion? Explain.
 
-> *Write your answer here.*
+> Yes, the plot agrees with my p-value-based conclusion. The null value of 36 lies near the center of the bootstrap distribution and is clearly inside the 95% confidence interval. This visual pattern is consistent with a large p-value and supports the decision to not reject the null hypothesis.
 
 ---
 
@@ -282,10 +282,10 @@ ggplot(tibble(boot_mean = boot_means), aes(x = boot_mean)) +
 
 Keep the same variable, but test a **different null value**.
 
-```{r second_claim, echo=TRUE, eval=FALSE}
+```{r second_claim, echo=TRUE, eval=TRUE}
 # GOAL: Test a second claim using the same sample and bootstrap SE.
 
-mu0_alt <- ___
+mu0_alt <- 30
 
 z_stat_alt <- (sample_mean - mu0_alt) / boot_se
 p_value_alt <- 2 * pnorm(-abs(z_stat_alt))
@@ -299,7 +299,7 @@ tibble(
 
 **Prompt (3–4 sentences):** How did changing the null value change the conclusion? What does this tell you about the relationship between the null hypothesis and the observed estimate?
 
-> *Write your answer here.*
+> Changing the null value from 36 to 30 completely changed the conclusion. When the null value was 36, it was very close to the sample mean, so the p-value was large and I did not reject H_0. When the null value was changed to 30, it became very far from the observed sample mean, so the z-statistic became much larger and the p-value became extremely small. This shows that hypothesis testing depends on how far the claimed null value is from the observed estimate relative to the uncertainty in that estimate.
 
 ---
 
