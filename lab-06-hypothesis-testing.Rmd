@@ -15,6 +15,8 @@ editor_options:
   chunk_output_type: console
 ---
 
+> GM GRADE 10/10 - Excellent submission. Very strong conceptual understanding, clean code execution, precise scientific writing, and thoughtful EAES connections throughout. 
+
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(lubridate)
@@ -142,6 +144,8 @@ Fill these in:
 
 > $H_A$: `The true 2023 mean soil water content is not 36.`
 
+> GM: Excellent — clear, well-stated claim about the population mean and properly formatted hypotheses.
+
 ---
 
 ## 4) Draw one sample and compute the sample mean
@@ -165,6 +169,8 @@ sample_mean
 **Prompt (2–3 sentences):** How does your sample mean compare to your claim? Is it close, or already quite different?
 
 > My sample mean is 36.05, which is extremely close to my claim of 36. Based on this sample alone, the claim appears plausible. At this stage, there is no clear evidence that the sample mean differs meaningfully from the claimed population mean.
+
+> GM: Excellent — concise and appropriate interpretation.
 
 ---
 
@@ -250,6 +256,8 @@ Fill in:
 **Prompt (4–6 sentences):** Explain your decision in plain language. Do the data make the claim look plausible or surprising? Be careful: “fail to reject” does not mean “prove true.”
 
 > In plain language, the data make the claim that the annual mean soil water content is 36 appear plausible rather than surprising. The null value of 36 lies within my 95% confidence interval, and the p-value is very large (0.927), indicating little evidence against the null hypothesis. Therefore, I would not reject H_0 at the 0.05 significance level. However, failing to reject the null hypothesis does not prove that the true mean is exactly 36; it only means that the data do not provide evidence against that claim.
+
+> GM: Excellent plain-language explanation that correctly distinguishes “fail to reject” from “prove true.”
 
 ---
 
@@ -426,6 +434,8 @@ Fill in:
 
 > $H_A$: `The mean air temperature differs between Day and Night.`
 
+> GM: Excellent, clearly stated in both words and symbols.
+
 ---
 
 ## 16) Run a two-sample t-test
@@ -446,6 +456,8 @@ Would you reject the null hypothesis at $\alpha = 0.05$?
 What does the result imply about day vs night differences in your chosen variable?
 
 > The p-value is less than 2.2e-16, which is extremely small. The 95% confidence interval for the difference in means is approximately 5.57 to 6.18°C. Because the p-value is far below 0.05, I would reject the null hypothesis. This result indicates that mean air temperature differs significantly between Day and Night. Specifically, daytime air temperature is on average about 5.9°C higher than nighttime air temperature.
+
+> GM: Excellent — precise reporting of p-value, CI, decision, and strong scientific implication (diurnal cycle).
 
 ---
 
@@ -625,6 +637,8 @@ Answer in **4–6 sentences**:
 - How did the bootstrap group-mean plot help your understanding?
 
 > A two-sample t-test is similar to the one-mean hypothesis test in Part I because both methods compare an observed estimate to a reference value relative to its uncertainty. In Part I, we tested whether a single population mean differed from a claimed value. In Part II, we instead tested whether the difference between two group means was significantly different from zero. The main difference is that the parameter of interest becomes the difference between two means rather than a single mean. The bootstrap group-mean plots helped illustrate this concept by showing the plausible ranges of the two group means. When the bootstrap distributions were clearly separated, it became easier to understand why the t-test produced such a small p-value.
+
+> GM: Excellent synthesis of the conceptual links between one-sample and two-sample tests and the value of bootstrap visualization.
 
 ---
 
